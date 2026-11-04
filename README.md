@@ -29,6 +29,19 @@ Rerun `gh actions-lock` after adding a workflow or changing any `uses:`.
 
 Make sure you don't check in a corrupt lockfile. Copy [`.github/workflows/verify-lockfile.yml`](.github/workflows/verify-lockfile.yml) into your repository, modify it for your needs, then run `gh actions-lock` once so that workflow is locked too.
 
+### pre-commit
+
+To catch a missing lockfile entry before it reaches CI, add the hook to your [pre-commit](https://pre-commit.com) config. It runs `--verify-local`, so it works offline and needs no `gh` login:
+
+```yaml
+- repo: https://github.com/github/gh-actions-lock
+  rev: v0.4.1
+  hooks:
+    - id: gh-actions-lock
+```
+
+pre-commit builds the CLI from the tagged source with Go, downloading a toolchain if none is installed.
+
 ### GitHub Enterprise Cloud with data residency
 
 Run `gh auth login --hostname TENANT.ghe.com`, then run `gh actions-lock` from the tenant repository checkout. The host comes from the repository remote; you don't need `--hostname` or an exported token.

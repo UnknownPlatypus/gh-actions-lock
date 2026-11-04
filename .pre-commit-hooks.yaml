@@ -1,0 +1,7 @@
+- id: gh-actions-lock
+  name: gh-actions-lock
+  description: Check that every action in .github/workflows has an entry in actions.lock (offline, --verify-local)
+  entry: gh-actions-lock --verify-local
+  language: golang
+  files: ^\.github/(workflows/.*\.ya?ml|actions\.lock)$
+  pass_filenames: false
